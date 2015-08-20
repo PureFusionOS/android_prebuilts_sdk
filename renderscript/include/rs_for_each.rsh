@@ -54,7 +54,10 @@ typedef enum rs_for_each_strategy {
  * over, like dimensions.  It also contains rarely used indices of the currently processed
  * cell, like the Array0 index or the current level of detail.
  *
- * You can access the kernel context by adding a special parameter named "context" of type
+ * A kernel may be executed in parallel over multiple threads.  Each thread will have its
+ * own context.
+ *
+ * You can access the context by adding a special parameter named "context" and of type
  * rs_kernel_context to your kernel function.  See rsGetDimX() and rsGetArray0() for examples.
  */
 #if (defined(RS_VERSION) && (RS_VERSION >= 23))
@@ -212,7 +215,7 @@ extern void
  * The kernel context contains common characteristics of the allocations being iterated
  * over and rarely used indices, like the Array0 index.
  *
- * You can access the kernel context by adding a special parameter named "context" of
+ * You can access the context by adding a special parameter named "context" and of
  * type rs_kernel_context to your kernel function.  E.g.
  * short RS_KERNEL myKernel(short value, uint32_t x, rs_kernel_context context) {
  *   // The current index in the common x, y, z dimensions are accessed by
@@ -361,7 +364,7 @@ extern uint32_t __attribute__((overloadable))
  * The kernel context contains common characteristics of the allocations being iterated
  * over and rarely used indices, like the Array0 index.
  *
- * You can access it by adding a special parameter named "context" of
+ * You can access it by adding a special parameter named "context" and of
  * type rs_kernel_context to your kernel function.  E.g.
  * int4 RS_KERNEL myKernel(int4 value, rs_kernel_context context) {
  *   uint32_t size = rsGetDimX(context); //...
